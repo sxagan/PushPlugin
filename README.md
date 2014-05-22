@@ -6,6 +6,8 @@
 
 **This plugin is provided as-is by AppGyver and not actively maintained. We do not provide official support for questions related to the Generic Push plugin (or any other third-party plugin not used by [Steroids Add-Ons](http://www.appgyver.com/steroids/addons)). Currently, the Urban Airship Add-On for iOS is the only guaranteed-to-work solution for push notifications on Steroids.**
 
+**Please see the [official PushPlugin repo](https://github.com/phonegap-build/PushPlugin) for the up-to-date version of this plugin.**
+
 ## DESCRIPTION
 
 This plugin is for use with [Cordova](http://incubator.apache.org/cordova/), and allows your application to receive push notifications on both Android and iOS devices. The Android implementation uses [Google's GCM (Google Cloud Messaging) service](http://developer.android.com/guide/google/gcm/index.html), whereas the iOS version is based on [Apple APNS Notifications](http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/ApplePushService/ApplePushService.html)
