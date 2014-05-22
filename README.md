@@ -2,6 +2,10 @@
 
 ---
 
+## DISCLAIMER
+
+**This plugin is provided as-is by AppGyver and not actively maintained. We do not provide official support for questions related to the Generic Push plugin (or any other third-party plugin not used by [Steroids Add-Ons](http://www.appgyver.com/steroids/addons)). Currently, the Urban Airship Add-On for iOS is the only guaranteed-to-work solution for push notifications on Steroids.**
+
 ## DESCRIPTION
 
 This plugin is for use with [Cordova](http://incubator.apache.org/cordova/), and allows your application to receive push notifications on both Android and iOS devices. The Android implementation uses [Google's GCM (Google Cloud Messaging) service](http://developer.android.com/guide/google/gcm/index.html), whereas the iOS version is based on [Apple APNS Notifications](http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/ApplePushService/ApplePushService.html)
@@ -32,90 +36,6 @@ This plugin is for use with [Cordova](http://incubator.apache.org/cordova/), and
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
-
-## Manual Installation for Android
-
-
-1) copy the contents of **src/android/com/** to your project's **src/com/** folder.
-   copy the contents of **libs/** to your **libs/** folder.
-   The final hirearchy will likely look something like this;
-
-	{project_folder}
-		libs
-			gcm.jar
-			android-support-v13.jar
-			cordova-2.7.0.jar
-		src
-			com
-				plugin
-					gcm
-						CordovaGCMBroadcastReceiver.java
-						GCMIntentService.java
-						PushHandlerActivity.java
-						PushPlugin.java
-				{company_name}
-					{intent_name}
-						{intent_name}.java
-
-2) Modify your **AndroidManifest.xml** and add the following lines to your manifest tag:
-
-```xml
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
-<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-<permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-<uses-permission android:name="$PACKAGE_NAME.permission.C2D_MESSAGE" />
-```
-
-3) Modify your **AndroidManifest.xml** and add the following **activity**, **receiver** and **service** tags to your **application** section. (See the Sample_AndroidManifest.xml file in the Example folder.)
-
-```xml
-<activity android:name="com.plugin.gcm.PushHandlerActivity"/>
-<receiver android:name="com.plugin.gcm.CordovaGCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
-	<intent-filter>
-		<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-		<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-		<category android:name="$PACKAGE_NAME" />
-	</intent-filter>
-</receiver>
-<service android:name="com.plugin.gcm.GCMIntentService" />
-```
-
-4) Modify your **res/xml/config.xml** to include the following line in order to tell Cordova to include this plugin and where it can be found: (See the Sample_config.xml file in the Example folder)
-
-```xml
-<plugin name="PushPlugin" value="com.plugin.gcm.PushPlugin" />
-```
-
-5) Add the **PushNotification.js** script to your assets/www folder (or javascripts folder, wherever you want really) and reference it in your main index.html file. This file's usage is described in the **Plugin API** section below.
-
-```html
-<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
-```
-
-## Manual Installation for iOS
-
-Copy the following files to your project's Plugins folder:
-
-```
-AppDelegate+notification.h
-AppDelegate+notification.m
-PushPlugin.h
-PushPlugin.m
-```
-
-Add a reference for this plugin to the plugins section in **config.xml**:
-
-```xml
-<gap:plugin name="com.phonegap.plugins.PushPlugin"/>
-```
-
-Add the **PushNotification.js** script to your assets/www folder (or javascripts folder, wherever you want really) and reference it in your main index.html file.
-
-```html
-<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
-```
 
 ## Automatic Installation
 This plugin is based on [plugman](https://github.com/apache/cordova-plugman). to install it to your app,
