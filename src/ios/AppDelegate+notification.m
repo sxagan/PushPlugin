@@ -14,7 +14,7 @@
 
 static char launchNotificationKey;
 
-@implementation AppGyverAppDelegate (notification)
+@implementation AppDelegate (notification)
 
 // its dangerous to override a method from within a category.
 // Instead we will use method swizzling. we set this up in the load call.
@@ -27,7 +27,7 @@ static char launchNotificationKey;
     method_exchangeImplementations(original, swizzled);
 }
 
-- (AppGyverAppDelegate *)swizzled_init
+- (AppDelegate *)swizzled_init
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createNotificationChecker:)
                name:@"UIApplicationDidFinishLaunchingNotification" object:nil];
