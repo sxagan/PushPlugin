@@ -49,6 +49,16 @@ static char launchNotificationKey;
 	}
 }
 
+-(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+
+    ApplicationViewController *root = (ApplicationViewController*)[[ApplicationManager instance] currentRootViewController];
+
+    for (WebViewController *controller in [root.allWebViewControllers allValues]) {
+        PushPlugin *pushHandler = [controller getCommandInstance:@"PushPlugin"];
+        [pushHandler didRegisterUserNotificationSettings:notificationSettings];
+    }
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     ApplicationViewController *root = (ApplicationViewController*)[[ApplicationManager instance] currentRootViewController];
 

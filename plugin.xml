@@ -6,21 +6,21 @@
 
     <name>PushPlugin</name>
 	<author>Bob Easterday</author>
-	
+
 	<description>
 		This plugin allows your application to receive push notifications on both Android and iOS devices. The Android implementation uses Google Cloud Messaging whereas the iOS version is based on Apple APNS Notifications
 	</description>
 
 	<license>MIT</license>
-	
+
 	<js-module src="www/PushNotification.js" name="PushNotification">
    	<clobbers target="PushNotification" />
 	</js-module>
 
 	<engines>
 		<engine name="cordova" version=">=3.0.0" />
-	</engines>	
-	
+	</engines>
+
 	<!-- android -->
 	<platform name="android">
 
@@ -57,12 +57,12 @@
 		<source-file src="src/android/com/plugin/gcm/GCMIntentService.java" target-dir="src/com/plugin/gcm/" />
 		<source-file src="src/android/com/plugin/gcm/PushHandlerActivity.java" target-dir="src/com/plugin/gcm/" />
 		<source-file src="src/android/com/plugin/gcm/PushPlugin.java" target-dir="src/com/plugin/gcm/" />
-		
+
 	</platform>
 
 	<!-- ios -->
 	<platform name="ios">
-		
+
 		<config-file target="config.xml" parent="/*">
 			<feature name="PushPlugin">
 				<param name="ios-package" value="PushPlugin"/>
