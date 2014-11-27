@@ -173,20 +173,37 @@
     // single notification types will only match if they are the ONLY one enabled.  Likewise, when we are checking for a pair of notifications, it will only be
     // true if those two notifications are on.  This is why the code is written this way
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
-        UIUserNotificationType rntypes = [[[UIApplication sharedApplication] currentUserNotificationSettings] types];
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
+        // iOS8 in iOS8 SDK
+        if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
+            UIUserNotificationType rntypes = [[[UIApplication sharedApplication] currentUserNotificationSettings] types];
 
-        if(rntypes & UIUserNotificationTypeBadge) {
+            if(rntypes & UIUserNotificationTypeBadge) {
+                pushBadge = @"enabled";
+            }
+            if(rntypes & UIUserNotificationTypeAlert) {
+                pushAlert = @"enabled";
+            }
+            if(rntypes & UIUserNotificationTypeSound) {
+                pushSound = @"enabled";
+            }
+        }
+    } else {
+        // iOS7 in iOS8 SDK
+        UIRemoteNotificationType rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+
+        if(rntypes & UIRemoteNotificationTypeBadge) {
             pushBadge = @"enabled";
         }
-        if(rntypes & UIUserNotificationTypeAlert) {
+        if(rntypes & UIRemoteNotificationTypeAlert) {
             pushAlert = @"enabled";
         }
-        if(rntypes & UIUserNotificationTypeSound) {
+        if(rntypes & UIRemoteNotificationTypeSound) {
             pushSound = @"enabled";
         }
     }
 #else
+    // iOS7 in iOS7 SDK
     UIRemoteNotificationType rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
 
     if(rntypes & UIRemoteNotificationTypeBadge) {
