@@ -246,7 +246,7 @@ public class PushPlugin extends CordovaPlugin {
 	 */
 	private static void forceMainActivityReload()
 	{
-		PackageManager pm = getPackageManager();
+		PackageManager pm = cordova.getActivity().getPackageManager();
 		Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());    		
 		cordova.getActivity().startActivity(launchIntent);
 	}
