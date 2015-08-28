@@ -29,6 +29,7 @@ public class PushPlugin extends CordovaPlugin {
 	public static final String EXIT = "exit";
 
 	private static CordovaWebView gWebView;
+	private static CordovaInterface cordova;
 	private static String gECB;
 	private static String gSenderID;
 	private static Bundle gCachedExtras = null;
@@ -46,6 +47,10 @@ public class PushPlugin extends CordovaPlugin {
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
 
 		boolean result = false;
+		if(this.cordova != null && PushPlugin.cordova == null){
+			Log.v(TAG, "execute: registering static cordova");
+			PushPlugin.cordova = this.cordova;
+		}
 
 		Log.v(TAG, "execute: action=" + action);
 
@@ -246,8 +251,10 @@ public class PushPlugin extends CordovaPlugin {
 	 */
 	private static void forceMainActivityReload()
 	{
-		PackageManager pm = cordova.getActivity().getPackageManager();
-		Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());    		
-		cordova.getActivity().startActivity(launchIntent);
+		if(cordova != null){
+			PackageManager pm = cordova.getActivity().getPackageManager();
+			Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());    		
+			cordova.getActivity().startActivity(launchIntent);
+		}
 	}
 }
