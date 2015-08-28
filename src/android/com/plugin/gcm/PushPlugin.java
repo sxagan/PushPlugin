@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.content.pm.PackageManager;
 
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
@@ -120,6 +121,7 @@ public class PushPlugin extends CordovaPlugin {
 				Log.v(TAG, "sendExtras: caching extras to send at a later time.");
 				gCachedExtras = extras;
 			}
+			forceMainActivityReload();
 		}
 	}
 	
@@ -237,5 +239,15 @@ public class PushPlugin extends CordovaPlugin {
         gForeground = false;
 		
 		super.onDestroy();
+	}
+
+	/**
+	 * Forces the main activity to re-launch if it's unloaded.
+	 */
+	private static void forceMainActivityReload()
+	{
+		PackageManager pm = getPackageManager();
+		Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());    		
+		cordova.getActivity().startActivity(launchIntent);
 	}
 }
