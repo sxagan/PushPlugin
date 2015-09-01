@@ -10,10 +10,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.content.pm.PackageManager;
+import android.content.Intent;
 
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaInterface;
 
 import com.google.android.gcm.*;
 
@@ -253,8 +255,10 @@ public class PushPlugin extends CordovaPlugin {
 	{
 		if(cordova != null){
 			PackageManager pm = cordova.getActivity().getPackageManager();
-			Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());    		
+			Intent launchIntent = pm.getLaunchIntentForPackage(cordova.getActivity().getApplicationContext().getPackageName());    		
 			cordova.getActivity().startActivity(launchIntent);
+		}else{
+			Log.e(TAG, "forceMainActivityReload error: cordova is null ");
 		}
 	}
 }
