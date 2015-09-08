@@ -49,10 +49,6 @@ public class PushPlugin extends CordovaPlugin {
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
 
 		boolean result = false;
-		if(this.cordova != null && PushPlugin.cordova == null){
-			Log.v(TAG, "execute: registering static cordova");
-			PushPlugin.cordova = this.cordova;
-		}
 
 		Log.v(TAG, "execute: action=" + action);
 
@@ -84,6 +80,11 @@ public class PushPlugin extends CordovaPlugin {
 				Log.v(TAG, "sending cached extras");
 				sendExtras(gCachedExtras);
 				gCachedExtras = null;
+			}
+
+			if(this.cordova != null && PushPlugin.cordova == null){
+				Log.v(TAG, "execute: registering static cordova");
+				PushPlugin.cordova = this.cordova;
 			}
 			
 		} else if (UNREGISTER.equals(action)) {
@@ -127,8 +128,9 @@ public class PushPlugin extends CordovaPlugin {
 			} else {
 				Log.v(TAG, "sendExtras: caching extras to send at a later time.");
 				gCachedExtras = extras;
+				forceMainActivityReload();
 			}
-			forceMainActivityReload();
+			
 		}
 	}
 	
